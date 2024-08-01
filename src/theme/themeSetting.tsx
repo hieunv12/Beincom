@@ -126,8 +126,7 @@ export const ThemeProvider = ({children}: {children: JSX.Element}) => {
         updateTheme: (isLight: boolean) => {
           onUpDateTheme(isLight);
         },
-      }}
-    >
+      }}>
       <ReStyleThemeProvider theme={themeApp}>{children}</ReStyleThemeProvider>
     </ThemeAppContext.Provider>
   );

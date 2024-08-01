@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// import {SplashScreen} from '../../../lib';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {getTokenUserFromStore} from '@redux';
@@ -12,7 +10,6 @@ import {MainStackComponent} from '../stack/MainStack';
 const Stack = createStackNavigator();
 //main stack app
 const NavigationApp = React.forwardRef((props, ref: any) => {
-  const dataTheme = useTheme() as any;
   const token = useSelector(getTokenUserFromStore);
 
   const renderStackApp = () => {
@@ -36,7 +33,6 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
   };
   return (
     <NavigationContainer
-      theme={dataTheme.theme}
       ref={ref}
       onReady={() => {
         // setTimeout(() => {

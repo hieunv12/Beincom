@@ -27,41 +27,6 @@ export const LoginScreen = () => {
   });
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={rootStyle.container}>
-      <Box
-        alignItems={'center'}
-        justifyContent="center"
-        flex={1}
-        paddingHorizontal={'l'}
-      >
-        <AppText variant={'title3'} fontWeight="600" marginBottom={'l'}>
-          LOGIN
-        </AppText>
-        <AppInput
-          value={values.email}
-          onChangeText={value => setFieldValue('email', value)}
-          placeholder="User name"
-          label="User name"
-          keyboardType="email-address"
-          error={errors.email}
-          touched={touched.email}
-        />
-        <AppInput
-          value={values.password}
-          onChangeText={value => setFieldValue('password', value)}
-          placeholder="PASSWORD"
-          label="PASSWORD"
-          marginTop={'xs'}
-          secureTextEntry
-          error={errors.password}
-          touched={touched.password}
-        />
-        <AppButton
-          label="Login"
-          onPress={handleSubmit}
-          style={{marginTop: MARGIN_TOP}}
-        />
-      </Box>
-    </KeyboardAwareScrollView>
+    <KeyboardAwareScrollView contentContainerStyle={rootStyle.container} />
   );
 };
