@@ -56,8 +56,7 @@ type themeType = {
 };
 
 export const darkTheme: themeType = {
-  // default
-  dark: true,
+  dark: false,
   colors: {
     background: '#111214',
     color_Tab_Unselected: '#5F5F5F',
@@ -78,7 +77,8 @@ export const darkTheme: themeType = {
 };
 
 export const lightTheme: themeType = {
-  dark: false,
+  // default
+  dark: true,
   colors: {
     background: '#fff',
     color_Tab_Unselected: '#d4d4d4',

@@ -1,6 +1,6 @@
-import {ENUM_COLORS, FontWithBold_Barlow, Text, useTheme} from '@theme';
+import {ENUM_COLORS, FontWithBold_Barlow, useTheme} from '@theme';
 import React from 'react';
-import {StyleProp, StyleSheet, TextProps, TextStyle} from 'react-native';
+import {StyleProp, StyleSheet, TextProps, Text, TextStyle} from 'react-native';
 interface AppTextProps {
   width?: number | string;
   height?: number | string;
@@ -43,8 +43,7 @@ export const AppText = (props: AppTextProps & TextProps) => {
     <Text
       {...props}
       style={[styles.label, !color && {color: themeColor.textColor}, style]}
-      numberOfLines={numberOfLines}
-      color={color}>
+      numberOfLines={numberOfLines}>
       {children}
     </Text>
   );

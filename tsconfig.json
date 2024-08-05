@@ -12,9 +12,7 @@
     "noUnusedParameters": false,
     "target": "esnext",
     "module": "commonjs",
-    "lib": [
-      "es2020"
-    ],
+    "lib": ["es2020"],
     "allowJs": true,
     "jsx": "react-native",
     "noEmit": true,
@@ -37,13 +35,13 @@
       "@navigation": ["src/navigation"],
       "@types": ["src/types"],
       "@theme": ["src/theme"],
-      // "shared": ["src/share"], 
+      "@schemas": ["src/schemas"],
       "@translations": ["src/translations"],
       "@constants": ["src/constants"],
       "@instances": ["./src/instances"],
       "@api": ["./src/api"],
       "@interfaces": ["./src/interfaces"],
-      "@models":["./src/models"]
+      "@models": ["./src/models"]
     }
-  },
+  }
 }

@@ -23,7 +23,7 @@ const newAsyncStorage = {
 const persistConfig = {
   key: 'root',
   storage: newAsyncStorage,
-  whitelist: ['accountSlice'],
+  whitelist: ['accountSlice', 'taskSlice', 'boardSlice', 'statusSlice'],
   blackList: ['bottomTabSlice'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,52 +1,59 @@
-import {IconMenu} from '@assets';
-import {AppHeader, AppScrollWrapBottomTab} from '@components';
-import {Box} from '@theme';
-import {LogApp} from '@utils';
+import {AppButton, AppHeader} from '@components';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import React from 'react';
-import {Pressable, StyleSheet} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import React, {useCallback} from 'react';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {useHookHome} from './Home.hook';
+import {navigate, SCREEN_ROUTE} from '@navigation';
+
+import TaskItem from './block/TaskItem';
+import {Spacing} from '@theme';
+import {HeaderHome} from './block/HeaderHome';
+import {taskItemInterface} from '@interfaces';
 dayjs.extend(customParseFormat);
 
 const Home = () => {
-  const {ListFooterComponent} = useHookHome();
+  const {workspaces, handleDeleteTask, handleDeleteWorkspace} = useHookHome();
 
+  const renderItem = useCallback(({item}: {item: taskItemInterface}) => {
+    return <TaskItem task={item} />;
+  }, []);
   return (
-    <>
-      <AppScrollWrapBottomTab
-        ListFooterComponent={ListFooterComponent}
-        ListHeaderComponent={
-          <>
-            <AppHeader title="Dashboard" />
-            <Box
-              flexDirection={'row'}
-              justifyContent="space-between"
-              paddingVertical={'s'}
-              paddingRight="s"
-            >
-              <Pressable
-                style={styles.btn12}
-                onPress={() => {
-                  LogApp('USER_CLICKED');
-                }}
-              >
-                <FastImage source={IconMenu} style={styles.img2} />
-              </Pressable>
-            </Box>
-          </>
-        }
-        isHeightStatus={false}
+    <View style={styles.container}>
+      <HeaderHome />
+      <FlatList
+        data={workspaces}
+        renderItem={renderItem}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingTop: Spacing.height8,
+          paddingHorizontal: Spacing.height16,
+        }}
+        keyExtractor={(item, _) => `item_task_${item.id.toString()}`}
       />
-    </>
+      <AppButton
+        label="Add Task"
+        onPress={() => {
+          navigate(SCREEN_ROUTE.ADD_TASK_PAGE);
+        }}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  img1: {width: 15, height: 18, marginRight: 10},
-  img2: {width: 18, height: 22},
-  btn12: {flexDirection: 'row', alignItems: 'center'},
+  container: {
+    flex: 1,
+
+    backgroundColor: '#f0f0f0',
+  },
+  task: {
+    padding: 16,
+    marginVertical: 8,
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    fontSize: 16,
+  },
 });
 
 export {Home};

@@ -27,6 +27,8 @@ export interface appInputProps extends TextInputProps {
   touched?: boolean;
   labelStyle?: StyleProp<TextStyle>;
   isMasked?: boolean;
+  inputStyle?: StyleProp<TextStyle>;
+  multiline?: boolean;
 }
 
 export function AppInput(props: appInputProps & ViewProps) {
@@ -41,17 +43,16 @@ export function AppInput(props: appInputProps & ViewProps) {
     error,
     touched,
     labelStyle,
+    inputStyle,
+    multiline,
   } = props;
   const [isFocus, setFocus] = useState(false);
   const [isPrivateText, setSecureTextEntry] = useState(secureTextEntry);
   const {themeColor} = useTheme();
-
   return (
     <Box style={styles.viewWidth} {...props}>
       {!!label && (
-        <AppText marginBottom={'m'} style={labelStyle}>
-          {label}
-        </AppText>
+        <AppText style={[styles.txtLabel, labelStyle]}>{label}</AppText>
       )}
       <Box justifyContent={'center'}>
         <TextInput
@@ -61,25 +62,22 @@ export function AppInput(props: appInputProps & ViewProps) {
           placeholder={placeholder}
           style={[
             styles.inputStyle,
-            {color: themeColor.textColor},
+            inputStyle,
             isFocus && styles.btnActive,
             secureTextEntry && {paddingRight: Spacing.width50},
           ]}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
           maxLength={maxLength}
+          multiline={multiline}
           keyboardType={keyboardType}
           autoCapitalize="none"
           placeholderTextColor={themeColor.placeHolderColor}
           clearButtonMode="while-editing"
           textContentType="newPassword"
         />
-        {!!error && !!touched && (
-          <AppText
-            variant={'title3'}
-            fontSize={11}
-            style={{color: Colors.lightRed}}
-            marginTop="sm">
+        {!!error && (
+          <AppText style={{color: Colors.lightRed, marginTop: Spacing.width12}}>
             {error}
           </AppText>
         )}

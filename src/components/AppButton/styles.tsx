@@ -6,9 +6,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 10,
-    minHeight: Spacing.height56,
+    minHeight: Spacing.height46,
     flexDirection: 'row',
-    borderRadius: Spacing.width84,
+    borderRadius: Spacing.width8,
     backgroundColor: Colors.blue,
   },
   label: {

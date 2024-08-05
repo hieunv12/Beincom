@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import {
   initialWindowMetrics,
   SafeAreaProvider,
@@ -18,22 +18,24 @@ initI18n();
 function App(): JSX.Element {
   return (
     <Provider store={store}>
-      <StatusBar barStyle="dark-content" backgroundColor={Colors.background} />
-      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
+      <SafeAreaProvider>
         <ThemeProvider>
-          <PersistGate loading={null} persistor={persistor}>
-            <NavigationApp
-              ref={(navigatorRef: any) => {
-                NavigationUtils.setTopLevelNavigator(navigatorRef);
-              }}
-            />
-            <FlashMessage
-              style={{paddingTop: 10}}
-              position="top"
-              //  floating={true}
-              hideStatusBar={false}
-            />
-          </PersistGate>
+          <SafeAreaView style={{flex: 1}}>
+            <PersistGate loading={null} persistor={persistor}>
+              <NavigationApp
+                ref={(navigatorRef: any) => {
+                  NavigationUtils.setTopLevelNavigator(navigatorRef);
+                }}
+              />
+              <FlashMessage
+                style={{paddingTop: 10}}
+                position="top"
+                //  floating={true}
+                hideStatusBar={false}
+              />
+            </PersistGate>
+          </SafeAreaView>
         </ThemeProvider>
       </SafeAreaProvider>
     </Provider>

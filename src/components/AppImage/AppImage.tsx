@@ -1,5 +1,5 @@
-import {NoImage} from '@assets';
-import {Box, useTheme} from '@theme';
+import {LogoApp, LogoBeincom, LogoNotBackground, NoImage} from '@assets';
+import {Box, Spacing, useTheme} from '@theme';
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, StyleProp} from 'react-native';
 import FastImage, {
@@ -64,5 +64,61 @@ const AppImage = React.memo((props: propsImage) => {
     </Box>
   );
 });
+const IconLogoApp = React.memo(
+  (props: {isBackground?: boolean; style?: StyleProp<ImageStyle>}) => {
+    const {
+      isBackground = true,
+      style = {width: Spacing.width24, height: Spacing.width24},
+    } = props;
 
-export {AppImage};
+    const {themeColor} = useTheme();
+    const [isLoading, setLoading] = useState(true);
+    const source = isBackground ? LogoApp : LogoNotBackground;
+
+    return (
+      <Box justifyContent={'center'} alignItems="center">
+        <FastImage
+          source={source}
+          style={style}
+          resizeMode={'contain'}
+          onLoadEnd={() => setLoading(false)}
+          onError={() => setLoading(false)}
+        />
+        {isLoading && (
+          <ActivityIndicator
+            color={themeColor.primary}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{position: 'absolute'}}
+          />
+        )}
+      </Box>
+    );
+  },
+);
+const IconLogoTextApp = React.memo((props: {style?: StyleProp<ImageStyle>}) => {
+  const {style = {width: Spacing.width24, height: Spacing.width24}} = props;
+
+  const {themeColor} = useTheme();
+  const [isLoading, setLoading] = useState(true);
+  const source = LogoBeincom;
+
+  return (
+    <Box justifyContent={'center'} alignItems="center">
+      <FastImage
+        source={source}
+        style={style}
+        resizeMode={'contain'}
+        onLoadEnd={() => setLoading(false)}
+        onError={() => setLoading(false)}
+      />
+      {isLoading && (
+        <ActivityIndicator
+          color={themeColor.primary}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{position: 'absolute'}}
+        />
+      )}
+    </Box>
+  );
+});
+export {AppImage, IconLogoApp, IconLogoTextApp};

@@ -9,15 +9,19 @@ export enum SCREEN_ROUTE {
   HEAR_RATE = 'HEAR_RATE',
 
   HOME_PAGE = 'HOME_PAGE',
-  TRADE_PAGE = 'TRADE_PAGE',
+  ADD_TASK_PAGE = 'ADD_TASK_PAGE',
   MAIN_PAGE = 'MAIN_PAGE',
   DISCOVER_PAGE = 'DISCOVER_PAGE',
   ACCOUNT_PAGE = 'ACCOUNT_PAGE',
   LOGIN = 'LOGIN',
+
+  //
+  // Add new screen here
+  BOARD_SCREEN = 'BOARD_SCREEN',
+  TASK_SCREEN = 'TASK_SCREEN',
 }
 
 export interface RootStackParamList {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
   [SCREEN_ROUTE.MAIN_STACK]: undefined;
   [SCREEN_ROUTE.HOME_PAGE]: undefined;
@@ -26,7 +30,7 @@ export interface RootStackParamList {
   [SCREEN_ROUTE.ACCOUNT_PAGE]: undefined;
   [SCREEN_ROUTE.LOGIN]: undefined;
   [SCREEN_ROUTE.AUTH_STACK]: undefined;
-  [SCREEN_ROUTE.TRADE_PAGE]: undefined;
+  [SCREEN_ROUTE.ADD_TASK_PAGE]: undefined;
   [SCREEN_ROUTE.MAIN_ROOT]: undefined;
 
   [SCREEN_ROUTE.DISCOVER_PAGE]: undefined;

@@ -1720,6 +1720,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hookform/resolvers@npm:^3.9.0":
+  version: 3.9.0
+  resolution: "@hookform/resolvers@npm:3.9.0"
+  peerDependencies:
+    react-hook-form: ^7.0.0
+  checksum: 64a1e77ea2eeeba521ec624f2cea33ec2d20c60de12847b59520393780a9c8b92b3d76b7b3eeabadef85e8c776826f7bc9016fa90a890580c4ed75503c060dd1
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -3505,6 +3514,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
+    "@hookform/resolvers": ^3.9.0
     "@react-native-community/cli": ^14.0.0
     "@react-native/babel-preset": 0.74.85
     "@react-native/eslint-config": 0.74.85
@@ -3528,9 +3538,11 @@ __metadata:
     lodash: ^4.17.21
     prettier: 2.8.8
     react: 18.2.0
+    react-hook-form: ^7.52.2
     react-i18next: ^15.0.0
     react-native: 0.74.3
     react-native-chart-kit: ^6.12.0
+    react-native-date-picker: ^5.0.4
     react-native-fast-image: ^8.6.3
     react-native-flash-message: ^0.4.2
     react-native-gesture-handler: ^2.18.0
@@ -3548,6 +3560,7 @@ __metadata:
     redux-persist: ^6.0.0
     rxjs: ^7.8.1
     typescript: ^5.0.4
+    zod: ^3.23.8
   languageName: unknown
   linkType: soft
 
@@ -8834,6 +8847,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.52.2":
+  version: 7.52.2
+  resolution: "react-hook-form@npm:7.52.2"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18 || ^19
+  checksum: 8621a21cf674f46507776741b2507d5357564af62bfc9dae8d1d7fb9076538352a48f16485885d3379d685d2d50537b28285322ad5a8c33d0ea5ddff21080543
+  languageName: node
+  linkType: hard
+
 "react-i18next@npm:^15.0.0":
   version: 15.0.0
   resolution: "react-i18next@npm:15.0.0"
@@ -8894,6 +8916,16 @@ __metadata:
     react-native: ">= 0.50.0"
     react-native-svg: "> 6.4.1"
   checksum: 04c225965c0ce3c71205a62bc92743e9188458d8f95c12481e43a2e53c425bd5db8274e57ab93c1cb95ffd3fb54950ca92c3d33e518a3505d7697c247b3b7e15
+  languageName: node
+  linkType: hard
+
+"react-native-date-picker@npm:^5.0.4":
+  version: 5.0.4
+  resolution: "react-native-date-picker@npm:5.0.4"
+  peerDependencies:
+    react: ">= 17.0.1"
+    react-native: ">= 0.64.3"
+  checksum: 67db7fba5de613c61a70b5b9274daef8c7d3b6f6cdc5a6063eb61126d4df43252c501c2cb78ebda37fb0997ccb0994e949976d0fb395453580019923100e03ad
   languageName: node
   linkType: hard
 
@@ -10974,5 +11006,12 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.23.8":
+  version: 3.23.8
+  resolution: "zod@npm:3.23.8"
+  checksum: 15949ff82118f59c893dacd9d3c766d02b6fa2e71cf474d5aa888570c469dbf5446ac5ad562bb035bf7ac9650da94f290655c194f4a6de3e766f43febd432c5c
   languageName: node
   linkType: hard

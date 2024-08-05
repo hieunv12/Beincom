@@ -1,3 +1,4 @@
+import {taskItem} from '@interfaces';
 import {TYPE_OF_PROFILE} from '@models';
 
 export interface accountInterface {
@@ -6,4 +7,7 @@ export interface accountInterface {
 }
 export interface bottomStatusInterface {
   status: boolean;
+}
+export interface taskInterface {
+  list: taskItem[];
 }

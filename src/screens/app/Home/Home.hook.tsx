@@ -1,72 +1,33 @@
-import {GlobalService} from '@components';
-import {AppChangeLanguage} from '@instances';
-import {apiCustomize, Axios} from '@redux';
 // import {authApi} from '@redux';
-import {useTheme} from '@theme';
-import React, {useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {AppButtonHome} from './AppButtonHome';
-import {ViewNote} from './ViewNote';
-let api = null;
+import React, {useState} from 'react';
+
+import {TaskInterface, taskItem, WorkspaceInterface} from '@interfaces';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteTask, deleteWorkspace, getWordSpace} from '@redux';
+
 export const useHookHome = () => {
-  const {updateTheme} = useTheme();
-  const {t} = useTranslation();
-  const [isDark, setDark] = useState(true);
-  const [value, setValue] = useState('');
-
-  // RTK QUERY
-  // const {data, isLoading} = authApi.useGetListDataQuery();
-
-  const apiCall = () => {
-    api = Axios.get('https://jsonplaceholder.typicode.com/users').subscribe(
-      da => {
-        console.log(da);
-      },
-    );
+  const workspaces = useSelector(getWordSpace);
+  const dispatch = useDispatch();
+  const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
+  const [isEditingTask, setIsEditingTask] = useState(false);
+  const [currentWorkspace, setCurrentWorkspace] =
+    useState<WorkspaceInterface | null>(null);
+  const [currentTask, setCurrentTask] = useState<TaskInterface | null>(null);
+  const handleDeleteWorkspace = (id: string) => {
+    dispatch(deleteWorkspace(id));
   };
 
-  const apiCustomev2 = () => {
-    apiCustomize
-      .callApi('get', 'https://jsonplaceholder.typicode.com/users')
-      .subscribe(v => {
-        console.log(v);
-      });
+  const handleDeleteTask = (workspaceId: string, taskId: string) => {
+    dispatch(deleteTask({workspaceId, taskId}));
   };
-
-  useEffect(() => {
-    apiCustomev2();
-    // apiCall();
-    // apiCall();
-    // apiCall();
-    // apiCall();
-    // apiCall();
-    // apiCall();
-    // apiCall();
-  }, []);
-
-  useEffect(() => {
-    GlobalService.hideLoading();
-  }, []);
-  const onSwitchLang = AppChangeLanguage();
-  // const insets = useSafeAreaInsets();
-
   const ListFooterComponent = React.useMemo((): JSX.Element => {
-    return (
-      <>
-        <AppButtonHome />
-        <ViewNote />
-      </>
-    );
+    return <></>;
   }, []);
 
   return {
     ListFooterComponent,
-    setDark,
-    isDark,
-    updateTheme,
-    onSwitchLang,
-    value,
-    setValue,
-    t,
+    workspaces,
+    handleDeleteTask,
+    handleDeleteWorkspace,
   };
 };

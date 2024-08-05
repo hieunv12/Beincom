@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {t} from 'i18next';
 import {showMessage} from 'react-native-flash-message';
 import {MMKV} from 'react-native-mmkv';
@@ -10,8 +9,7 @@ export const showAlertMessage = (
   type?: 'success' | 'danger' | 'warning' | 'info',
 ) => {
   showMessage({
-    message: t('common.messagesNotify'),
-    description: message,
+    message: message,
     type: type || 'success',
     duration: 1500,
   });

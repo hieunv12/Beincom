@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import {Colors, Box} from '@theme';
 import {
@@ -79,7 +78,7 @@ export function AppButton(props: ButtonProps) {
             backgroundColor:
               backgroundColor || disabled
                 ? themeColor.colorDisable
-                : Colors.blue,
+                : Colors.primary,
           },
           style,
         ]}
@@ -100,8 +99,7 @@ export function AppButton(props: ButtonProps) {
             isWrap && styles.txtWrap,
             labelStyle,
           ]}
-          numberOfLines={numberOfLines}
-          variant="button">
+          numberOfLines={numberOfLines}>
           {label}
         </AppText>
       </TouchableOpacity>
