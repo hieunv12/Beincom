@@ -3,7 +3,7 @@ import {AppModal, AppText} from '@components';
 import {StatusInterface, taskItemInterface} from '@interfaces';
 import {getTasks} from '@redux';
 import {Colors, FontSize, Shadow, Spacing} from '@theme';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import TaskForm from '../../TaskForm/TaskForm';
@@ -11,15 +11,23 @@ import {ItemTask} from './ItemTask';
 export interface ItemStatusProps {
   item: StatusInterface;
   onEdit: () => void;
+  idBoard?: string;
 }
 
 export function ItemStatus(props: ItemStatusProps) {
-  const {item, onEdit} = props;
+  const {item, onEdit, idBoard} = props;
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTask, setCurrentTask] = useState<taskItemInterface | null>(
     null,
   );
   const tasks = useSelector(getTasks);
+
+  const tasksInStatus: taskItemInterface[] = useMemo(
+    () =>
+      tasks.filter(task => task.status === item.id && task.idBoard === idBoard),
+    [tasks, item.id, idBoard],
+  );
+
   const handleEditTask = (task: taskItemInterface) => {
     setCurrentTask(task);
     setModalVisible(true);
@@ -32,6 +40,15 @@ export function ItemStatus(props: ItemStatusProps) {
   const renderItem = useCallback(({item}: {item: taskItemInterface}) => {
     return <ItemTask item={item} onEdit={() => handleEditTask(item)} />;
   }, []);
+  // const handleReceiveDragDrop = (event: any, statusId: string) => {
+  //   const draggedTask: taskItemInterface = event.dragged.payload;
+  //   if (draggedTask.status !== statusId) {
+  //     if (tasksInStatus?.[0]) {
+  //       dispatch(updateTask({...tasksInStatus?.[0], status: statusId}));
+  //     }
+
+  //   }
+  // };
   return (
     <View style={styles.container}>
       <View style={styles.headerStatus}>
@@ -40,15 +57,15 @@ export function ItemStatus(props: ItemStatusProps) {
           <DotsHorizontalIcon />
         </TouchableOpacity>
       </View>
-      {tasks
-        .filter(task => task.status === item.id)
-        .map(task => (
-          <View key={`task_${task.id}`}>{renderItem({item: task})}</View>
-        ))}
+
+      {tasksInStatus.map(task => (
+        <View key={`task_${task.id}`}>{renderItem({item: task})}</View>
+      ))}
       <TouchableOpacity style={styles.btnAddTask} onPress={handleAddTask}>
         <PlusIcon width={Spacing.width16} iconFillColor={Colors.gray3} />
         <AppText style={styles.txtAddTask}>Add Task</AppText>
       </TouchableOpacity>
+
       <AppModal
         isVisible={modalVisible}
         styleContainer={styles.modalContainer}
@@ -64,6 +81,7 @@ export function ItemStatus(props: ItemStatusProps) {
           existingTask={currentTask}
           onClose={() => setModalVisible(false)}
           status={item.id}
+          idBoard={idBoard}
         />
       </AppModal>
     </View>
@@ -79,6 +97,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.width4,
     borderRadius: Spacing.width8,
     width: Spacing.width220,
+  },
+  task: {
+    padding: 15,
+    marginVertical: 5,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
+  },
+  statusContainer: {
+    // backgroundColor: 'red',
   },
   txtStatus: {
     fontSize: FontSize.Font14,
@@ -115,5 +147,8 @@ const styles = StyleSheet.create({
   btnClose: {
     alignSelf: 'flex-end',
     padding: Spacing.width16,
+  },
+  dragging: {
+    opacity: 0.2,
   },
 });

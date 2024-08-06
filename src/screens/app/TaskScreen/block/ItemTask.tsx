@@ -1,11 +1,13 @@
-import {IconDate} from '@assets';
-import {AppText} from '@components';
+import {CloseIcon, FontWithBold, IconDate} from '@assets';
+import {AppModal, AppText} from '@components';
 import {DataLevel} from '@constants';
-import {taskItemInterface} from '@interfaces';
+import {StatusInterface, taskItemInterface} from '@interfaces';
+import {getStatus, updateTask} from '@redux';
 import {Colors, FontSize, Shadow, Spacing} from '@theme';
 import {FormatDate} from '@utils';
-import React, {useMemo} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useMemo, useState} from 'react';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 export interface ItemTaskProps {
   item: taskItemInterface;
   onEdit: () => void;
@@ -13,13 +15,27 @@ export interface ItemTaskProps {
 
 export function ItemTask(props: ItemTaskProps) {
   const {item, onEdit} = props;
+  const dispatch = useDispatch();
 
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const handleLongPress = () => {
+    setDropdownVisible(true);
+  };
+  const statuses = useSelector(getStatus);
+  const handleStatusChange = (status: StatusInterface) => {
+    dispatch(updateTask({...item, status: status.id}));
+
+    setDropdownVisible(false);
+  };
   const itemLevel = useMemo(() => {
     return DataLevel.find(elm => elm.value === item.level);
   }, [item.level]);
 
   return (
-    <TouchableOpacity onPress={onEdit} style={styles.container}>
+    <TouchableOpacity
+      onLongPress={handleLongPress}
+      onPress={onEdit}
+      style={[styles.container]}>
       <View style={styles.progressBarContainer}>
         <View
           style={[
@@ -52,6 +68,36 @@ export function ItemTask(props: ItemTaskProps) {
           </AppText>
         )}
       </View>
+      {dropdownVisible && (
+        <AppModal
+          isVisible={dropdownVisible}
+          style={styles.modal}
+          styleContainer={{justifyContent: 'flex-end'}}
+          closeModal={() => setDropdownVisible(false)}>
+          <TouchableOpacity
+            onPress={() => setDropdownVisible(false)}
+            style={styles.btnClose}
+            hitSlop={styles.hint}>
+            <CloseIcon />
+          </TouchableOpacity>
+          <FlatList
+            data={statuses}
+            keyExtractor={item => item.id}
+            renderItem={({item: statusItem}) => (
+              <TouchableOpacity
+                style={[
+                  styles.itemStatus,
+                  statusItem.id === item.status && {
+                    backgroundColor: Colors.gray5,
+                  },
+                ]}
+                onPress={() => handleStatusChange(statusItem)}>
+                <AppText style={styles.dropdownItem}>{statusItem.name}</AppText>
+              </TouchableOpacity>
+            )}
+          />
+        </AppModal>
+      )}
     </TouchableOpacity>
   );
 }
@@ -64,6 +110,12 @@ const styles = StyleSheet.create({
     elevation: 1,
     marginTop: Spacing.width8,
   },
+  btnClose: {
+    alignSelf: 'flex-end',
+    padding: Spacing.width16,
+  },
+  hint: {top: 25, bottom: 25, left: 25, right: 25},
+
   title: {
     fontSize: FontSize.Font14,
     color: Colors.black,
@@ -93,5 +145,17 @@ const styles = StyleSheet.create({
   viewRow: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  dropdownItem: {
+    fontSize: FontSize.Font14,
+    color: Colors.black,
+    ...FontWithBold.Bold_500,
+  },
+  modal: {
+    borderTopLeftRadius: Spacing.width16,
+    borderTopRightRadius: Spacing.width16,
+  },
+  itemStatus: {
+    padding: Spacing.width8,
   },
 });

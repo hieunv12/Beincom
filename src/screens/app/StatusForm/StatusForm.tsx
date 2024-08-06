@@ -16,6 +16,7 @@ import {useDispatch} from 'react-redux';
 interface StatusFormProps {
   existingStatus?: StatusInterface | null;
   onClose: () => void;
+  idBoard?: string;
 }
 
 const StatusForm: React.FC<StatusFormProps> = ({existingStatus, onClose}) => {

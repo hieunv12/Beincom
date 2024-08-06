@@ -19,6 +19,7 @@ export enum SCREEN_ROUTE {
   // Add new screen here
   BOARD_SCREEN = 'BOARD_SCREEN',
   TASK_SCREEN = 'TASK_SCREEN',
+  TEST_DRAG = 'TEST_DRAG',
 }
 
 export interface RootStackParamList {

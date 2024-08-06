@@ -10,9 +10,7 @@ import {
 } from 'react-native';
 import {styles} from './styles';
 import {AppText} from '../AppText';
-// import {SpacingProps, TypographyProps} from '@shopify/restyle';
 import {Eye, EyeActive} from '@assets';
-// import MaskInput, {MaskInputProps} from 'react-native-mask-input';
 import {StyleProp} from 'react-native';
 
 export interface appInputProps extends TextInputProps {
@@ -54,44 +52,43 @@ export function AppInput(props: appInputProps & ViewProps) {
       {!!label && (
         <AppText style={[styles.txtLabel, labelStyle]}>{label}</AppText>
       )}
-      <Box justifyContent={'center'}>
-        <TextInput
-          value={value}
-          onChangeText={onChangeText}
-          secureTextEntry={isPrivateText}
-          placeholder={placeholder}
-          style={[
-            styles.inputStyle,
-            inputStyle,
-            isFocus && styles.btnActive,
-            secureTextEntry && {paddingRight: Spacing.width50},
-          ]}
-          onFocus={() => setFocus(true)}
-          onBlur={() => setFocus(false)}
-          maxLength={maxLength}
-          multiline={multiline}
-          keyboardType={keyboardType}
-          autoCapitalize="none"
-          placeholderTextColor={themeColor.placeHolderColor}
-          clearButtonMode="while-editing"
-          textContentType="newPassword"
-        />
-        {!!error && (
-          <AppText style={{color: Colors.lightRed, marginTop: Spacing.width12}}>
-            {error}
-          </AppText>
-        )}
-        {!!secureTextEntry && (
-          <Box position={'absolute'} right={10}>
-            <Pressable
-              onPress={() => {
-                setSecureTextEntry(prv => !prv);
-              }}>
-              {isPrivateText ? <Eye /> : <EyeActive />}
-            </Pressable>
-          </Box>
-        )}
-      </Box>
+
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        secureTextEntry={isPrivateText}
+        placeholder={placeholder}
+        style={[
+          styles.inputStyle,
+          inputStyle,
+          isFocus && styles.btnActive,
+          secureTextEntry && {paddingRight: Spacing.width50},
+        ]}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        maxLength={maxLength}
+        multiline={multiline}
+        keyboardType={keyboardType}
+        autoCapitalize="none"
+        placeholderTextColor={themeColor.placeHolderColor}
+        clearButtonMode="while-editing"
+        textContentType="newPassword"
+      />
+      {!!error && (
+        <AppText style={{color: Colors.lightRed, marginTop: Spacing.width12}}>
+          {error}
+        </AppText>
+      )}
+      {!!secureTextEntry && (
+        <Box position={'absolute'} right={10}>
+          <Pressable
+            onPress={() => {
+              setSecureTextEntry(prv => !prv);
+            }}>
+            {isPrivateText ? <Eye /> : <EyeActive />}
+          </Pressable>
+        </Box>
+      )}
     </Box>
   );
 }

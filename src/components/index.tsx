@@ -13,3 +13,4 @@ export * from './AppModal';
 export * from './AppInputDate';
 export * from './AppDropdown';
 export * from './AppConfirmDelete';
+export * from './AppDraggable';

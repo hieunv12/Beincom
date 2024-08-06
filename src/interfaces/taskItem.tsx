@@ -8,6 +8,7 @@ export interface taskItemInterface {
   estimatedTime: string;
   level?: 'easy' | 'medium' | 'hard' | '';
   progress?: string;
+  idBoard: string;
 }
 export interface TaskInterface {
   id: string;

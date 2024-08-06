@@ -20,6 +20,7 @@ const MainStackComponent = memo(() => {
         name={SCREEN_ROUTE.TASK_SCREEN}
         component={TasksScreen}
       />
+      <MainStack.Screen name={SCREEN_ROUTE.TEST_DRAG} component={Home} />
     </MainStack.Navigator>
   );
 });

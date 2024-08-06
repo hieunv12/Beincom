@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {TaskFormProps} from './TaskForm';
 
 export const useHook = (props: TaskFormProps) => {
-  const {existingTask, onClose, status = ''} = props;
+  const {existingTask, onClose, status = '', idBoard} = props;
   const [visible, setVisible] = React.useState(false);
   const {
     control,
@@ -33,9 +33,9 @@ export const useHook = (props: TaskFormProps) => {
 
   const onSubmit = (data: any) => {
     if (existingTask) {
-      dispatch(updateTask({...existingTask, ...data}));
+      dispatch(updateTask({...existingTask, ...data, idBoard: idBoard}));
     } else {
-      dispatch(addTask({id: Date.now().toString(), ...data}));
+      dispatch(addTask({id: Date.now().toString(), ...data, idBoard: idBoard}));
     }
     showAlertMessage(
       existingTask ? 'Task updated successfully' : 'Task added successfully',

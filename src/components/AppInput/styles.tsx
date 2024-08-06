@@ -1,10 +1,10 @@
 import {FontWithBold} from '@assets';
-import {BORDER_RADIUS_20, Colors, FontSize, Spacing} from '@theme';
+import {Colors, FontSize, Spacing} from '@theme';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   inputStyle: {
-    height: Spacing.height48,
+    height: Spacing.height55,
     minHeight: 48,
     paddingHorizontal: Spacing.width15,
     borderWidth: 1,

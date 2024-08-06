@@ -1,59 +1,54 @@
-import {AppButton, AppHeader} from '@components';
-import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import React, {useCallback} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-import {useHookHome} from './Home.hook';
-import {navigate, SCREEN_ROUTE} from '@navigation';
+import React from 'react';
+import {StyleSheet} from 'react-native';
+import {DraxProvider} from 'react-native-drax';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {StatusColumn} from './block/StatusColumn';
 
-import TaskItem from './block/TaskItem';
-import {Spacing} from '@theme';
-import {HeaderHome} from './block/HeaderHome';
-import {taskItemInterface} from '@interfaces';
-dayjs.extend(customParseFormat);
-
-const Home = () => {
-  const {workspaces, handleDeleteTask, handleDeleteWorkspace} = useHookHome();
-
-  const renderItem = useCallback(({item}: {item: taskItemInterface}) => {
-    return <TaskItem task={item} />;
-  }, []);
+export const Home = () => {
   return (
-    <View style={styles.container}>
-      <HeaderHome />
-      <FlatList
-        data={workspaces}
-        renderItem={renderItem}
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingTop: Spacing.height8,
-          paddingHorizontal: Spacing.height16,
-        }}
-        keyExtractor={(item, _) => `item_task_${item.id.toString()}`}
-      />
-      <AppButton
-        label="Add Task"
-        onPress={() => {
-          navigate(SCREEN_ROUTE.ADD_TASK_PAGE);
-        }}
-      />
-    </View>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <DraxProvider>
+        <StatusColumn />
+      </DraxProvider>
+    </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    backgroundColor: '#f0f0f0',
-  },
-  task: {
-    padding: 16,
-    marginVertical: 8,
+    flexDirection: 'row',
+    padding: 8,
     backgroundColor: '#fff',
+  },
+  statusColumn: {
+    flex: 1,
+    marginHorizontal: 4,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+    padding: 8,
+  },
+  statusText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  taskItem: {
+    padding: 16,
+    marginVertical: 4,
+    backgroundColor: '#e0e0e0',
     borderRadius: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  taskText: {
     fontSize: 16,
   },
+  dragHandle: {
+    padding: 8,
+  },
+  dragText: {
+    fontSize: 18,
+  },
 });
-
-export {Home};

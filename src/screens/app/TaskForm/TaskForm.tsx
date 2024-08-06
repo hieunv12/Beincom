@@ -21,6 +21,7 @@ export interface TaskFormProps {
   existingTask?: taskItemInterface | null;
   onClose: () => void;
   status?: string;
+  idBoard?: string;
 }
 
 const TaskForm: React.FC<TaskFormProps> = (props: TaskFormProps) => {
